@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+	#templates {
+		display: none;
+	}
+</style>
+
+<div class="text-center">
+	<div id="templates">
+		<div id="listAnimals">
+			<p>
+				Cat
+			</p>
+
+			<p>
+				Dog
+			</p>
+		</div>
+		<div id="listColors">
+			<p>
+				Red
+			</p>
+
+			<p>
+				Green
+			</p>
+		</div>
+	</div>
+    <h1 class="display-4">Welcome</h1>
+
+	<select name="category">
+		<option>Select . . .</option>
+		<option value="animal">Animal</option>
+		<option value="color">Color</option>
+	</select>
+
+	<div name="stage">
+
+	</div>
+</div>
+
+<script>
+	$(document).ready(function () {
+		var categoryModel = {
+			categories: ["animal", "color"],
+			init: (function () {
+				$("[name='category']").unbind("change");
+				$("[name='category']").bind("change", function () {
+
+					switch ($(this).val()) {
+						default:
+							$("[name='stage']").empty();
+							break
+
+						case "animal":
+							$("[name='stage']").html($("#templates > #listAnimals").html());
+							break;
+
+						case "color":
+							$("[name='stage']").html($("#templates > #listColors").html());
+							break;
+					}
+				});
+			})
+		};
+
+		categoryModel.init();
+
+		//matrixModel.matrices.addFeature(new UIMatrixFeature("feat_test", (function () {
+		//	return 30;
+		//}), 1.0));
+
+		//matrixModel.matrices.addElement("[name='category']");
+
+		//var calc =
+		//	matrixModel.matrices.calculateMatrices();
+
+		//matrixModel.matrices.disorganizeElements(150.0);
+
+		//var calc2 =
+		//	matrixModel.matrices.calculateMatrices();
+
+		//debugger;
+	});
+</script>

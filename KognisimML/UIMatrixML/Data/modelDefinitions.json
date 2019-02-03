@@ -1,0 +1,30 @@
+{
+	"$type": "UIMatrixML.Modeling.ModelDefinition, UIMatrixML",
+	"Watchers": [ "[name='category']" ],
+	"Valid": [
+		{
+			"$type": "UIMatrixML.Modeling.ModelDefinitionState, UIMatrixML",
+			"Actions": [
+				{
+					"$type": "UIMatrixML.Modeling.ModelDefinitionAction, UIMatrixML",
+					"Action": "SetValue",
+					"Selector": "category",
+					"Value": "animal"
+				}
+			]
+		}
+	],
+	"Invalid": [
+		{
+			"$type": "UIMatrixML.Modeling.ModelDefinitionState, UIMatrixML",
+			"Actions": [
+				{
+					"$type": "UIMatrixML.Modeling.ModelDefinitionAction, UIMatrixML",
+					"Action": "SetValue",
+					"Selector": "category",
+					"Value": null
+				}
+			]
+		}
+	]
+}
