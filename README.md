@@ -9,6 +9,7 @@ With UIMatrix ML, verification of front-end elements can easily be achieved.
 Essentially, the framework calculates matrices given x features of HTML elements. For example, the default matrix build includes POS_X, POS_Y, WIDTH, HEIGHT. Simply put, a mathematical representation of your HTML elements' features is built.
 
 A matrix would be built representing these features for a button:
-    [0, 0, 100, 25] assuming the button is at 0,0 and has a size of 100,25.
+
+    [0, 0, 100, 25] 
 
 UIMatrixML will build an inference model with given data to determine the probability that your site is visually stable. Running your site in different scenarios allows you to find areas where visual mishaps might happen.
