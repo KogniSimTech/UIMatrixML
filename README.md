@@ -12,4 +12,6 @@ A matrix would be built representing these features for a button:
 
     [0, 0, 100, 25] 
 
+![Flow](https://www.lucidchart.com/publicSegments/view/de02bdbf-f5a4-416d-8f8c-94de5487076a/image.png)
+
 UIMatrixML will build an inference model with given data to determine the probability that your site is visually stable. Running your site in different scenarios allows you to find areas where visual mishaps might happen.
