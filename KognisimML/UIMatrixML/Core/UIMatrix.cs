@@ -62,12 +62,12 @@ namespace UIMatrixML.Core
         /// Wait for front-end to confirm validity.
         /// </summary>
         /// <param name="webApplication">Web Application handler.</param>
-        /// <param name="confirmation">Confirmation callback.</param>
+        /// <param name="callback">Confirmation callback.</param>
         /// <returns>Current matrix.</returns>
-        public static IList<double> AwaitValidityConfirmation(IWebApplication webApplication, Action<bool, IList<double>> confirmation)
+        public static IList<double> AwaitValidityConfirmation(IWebApplication webApplication, Action<bool, IList<double>> callback)
         {
-            if (confirmation == null)
-                throw new ArgumentNullException(nameof(confirmation));
+            if (callback == null)
+                throw new ArgumentNullException(nameof(callback));
 
             IJavaScriptExecutor jsExecute = ((IJavaScriptExecutor)webApplication.Driver);
 
@@ -77,7 +77,9 @@ namespace UIMatrixML.Core
             {
                 while (validity == null)
                 {
-                    validity = (bool?)jsExecute.ExecuteScript("return matrixModel.validity;");
+                    if (jsExecute.ExecuteScript("return matrixModel.validity;") is bool isValid)
+                        validity = isValid;
+
                     System.Threading.Thread.Sleep(500);
                 }
             });
@@ -90,7 +92,7 @@ namespace UIMatrixML.Core
 
             jsExecute.ExecuteScript("matrixModel.validity = null;");
 
-            confirmation(validity.Value, matrix);
+            callback(validity.Value, matrix);
 
             return matrix;
 

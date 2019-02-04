@@ -8,21 +8,41 @@ namespace UIMatrixML.Modeling
 {
     public class ModelDefinition : IModelDefinition
     {
+        private IWebApplication webApplication { get; set; }
+
+        public IWebApplication WebApplication =>
+            this.webApplication;
+
         public IList<string> Watchers { get; set; }
         public IList<IModelDefinitionState> Valid { get; set; }
         public IList<IModelDefinitionState> Invalid { get; set; }
 
-        public static ModelDefinition New(string jsonFilePath = null)
+        public static ModelDefinition New(IWebApplication webApplication, string jsonFilePath = null)
         {
+            ModelDefinition modelDef;
             if (string.IsNullOrWhiteSpace(jsonFilePath))
-                return new ModelDefinition();
-
-            string modelDefinerTemplate = File.ReadAllText(jsonFilePath);
-
-            return JsonConvert.DeserializeObject<ModelDefinition>(modelDefinerTemplate, new JsonSerializerSettings
             {
-                TypeNameHandling = TypeNameHandling.All
-            });
+                modelDef = new ModelDefinition();
+                modelDef.BindWebApplication(webApplication);
+            }
+            else
+            {
+                string modelDefinerTemplate = File.ReadAllText(jsonFilePath);
+                modelDef = JsonConvert.DeserializeObject<ModelDefinition>(modelDefinerTemplate, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All
+                });
+
+                modelDef.BindWebApplication(webApplication);
+            }
+
+            return modelDef;
+
+        }
+
+        public void BindWebApplication(IWebApplication webApplication)
+        {
+            this.webApplication = webApplication;
         }
 
         public void Train(IWebApplication webApplication, IMLModel mlModel)

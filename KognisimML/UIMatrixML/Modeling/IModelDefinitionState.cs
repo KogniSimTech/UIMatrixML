@@ -7,6 +7,6 @@ namespace UIMatrixML.Modeling
     {
         IList<IModelDefinitionAction> Actions { get; set; }
 
-        IList<double> RunValidation(IWebApplication webApplication, IMLModel mlModel, IModelDefinition modelDefiner, IModelDefinitionState validModel, bool valid);
+        IList<double> RunValidation(IWebApplication webApplication, IMLModel mlModel, IModelDefinition modelDefinition, IModelDefinitionState definitionState, bool valid);
     }
 }

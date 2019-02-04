@@ -1,4 +1,6 @@
-﻿namespace UIMatrixML.Modeling
+﻿using System.Collections.Generic;
+
+namespace UIMatrixML.Modeling
 {
     public class SimpleMLModel : BaseMLModel
     {
@@ -10,8 +12,15 @@
         /// <typeparam name="TModel">Model type.</typeparam>
         /// <param name="features">Feature values.</param>
         /// <returns>Probability matrix is valid.</returns>
-        public override double Predict<TModel>(double[] data) =>
-            base.Predict<SimpleMLModel>(data);
+        public override double Predict(IList<double> data) =>
+            this.Predict<SimpleMLModel>(data);
+
+        /// <summary>
+        /// Make a prediction on current UI.
+        /// </summary>
+        /// <returns>Matrix.</returns>
+        public double Predict() =>
+            this.Predict<SimpleMLModel>(Core.UIMatrix.CalculateMatrices(this.Model.WebApplication));
 
         public SimpleMLModel()
         {
@@ -24,6 +33,7 @@
                 this.Init();
         }
 
+
         public SimpleMLModel(IModelDefinition model, bool init = false)
         {
             this.Model = model;
@@ -35,9 +45,6 @@
                 // Load CSV Data
                 this.LoadDataFromCsv(csvFilePath: Resources.ResourceManager.GetString("modelDataFilePath"), hasHeader: true);
             }
-
-            
-            
         }
     }
 }

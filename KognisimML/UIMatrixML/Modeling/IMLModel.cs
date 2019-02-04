@@ -7,7 +7,7 @@ namespace UIMatrixML.Modeling
 {
     public interface IMLModel
     {
-        IModelDefinition Definition { get; set; }
+IModelDefinition Definition { get; set; }
 
         double Noise { get; set; }
 
@@ -47,6 +47,7 @@ namespace UIMatrixML.Modeling
         /// <typeparam name="TModel">Model type.</typeparam>
         /// <param name="features">Feature values.</param>
         /// <returns></returns>
-        double Predict<TModel>(double[] data) where TModel : new();
+        double Predict<TModel>(IList<double> data) where TModel : new();
+        double Predict(IList<double> data);
     }
 }

@@ -90,11 +90,8 @@ namespace UIMatrixML.Modeling
 
                 // Create Observable variable based on valid_ui;
                 y = Variable.Observed(Validity.ToArray());
-
-                IMLModel that = this;
-                VariableArray<bool> that_y = y;
-
-                BayesPointMachine.Run(ref that, y, w);
+                
+                BayesPointMachine.Run(this, y, w);
             }
 
         }
@@ -161,7 +158,7 @@ namespace UIMatrixML.Modeling
         /// <typeparam name="TModel">Model type.</typeparam>
         /// <param name="features">Feature values.</param>
         /// <returns>Probability matrix is valid.</returns>
-        public virtual double Predict<TModel>(double[] features) where TModel : new()
+        public virtual double Predict<TModel>(IList<double> features) where TModel : new()
         {
             if (initialized == false)
                 throw new Exception("ML Model has not been initialized yet.");
@@ -178,18 +175,15 @@ namespace UIMatrixML.Modeling
                     new TModel();
 
                 ((BaseMLModel)model).Data = 
-                    new List<double[]>() { features };
+                    new List<double[]>() { features.ToArray() };
 
                 VectorGaussian wPosterior = 
                     engine.Infer<VectorGaussian>(w);
 
                 VariableArray<bool> ytest = 
                     Variable.Array<bool>(new Range(1));
-
-                IMLModel that = 
-                    model as IMLModel;
-
-                BayesPointMachine.Run(ref that, ytest, Variable.Random(wPosterior).Named("w"));
+                
+                BayesPointMachine.Run(this, ytest, Variable.Random(wPosterior).Named("w"));
 
                 return (engine.Infer(ytest) as IEnumerable<Bernoulli>)
                     .First()
@@ -197,6 +191,8 @@ namespace UIMatrixML.Modeling
             }
 
         }
+
+        public abstract double Predict(IList<double> data);
         
         public BaseMLModel()
         {
