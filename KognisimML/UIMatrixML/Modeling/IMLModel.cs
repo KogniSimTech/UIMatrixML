@@ -7,7 +7,7 @@ namespace UIMatrixML.Modeling
 {
     public interface IMLModel
     {
-IModelDefinition Definition { get; set; }
+        IModelDefinition Definition { get; set; }
 
         double Noise { get; set; }
 

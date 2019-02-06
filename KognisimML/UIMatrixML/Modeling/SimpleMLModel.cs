@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UIMatrixML.Modeling
 {
     public class SimpleMLModel : BaseMLModel
     {
+        [NotMapped]
         IModelDefinition Model { get; set; }
 
         /// <summary>

@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using UIMatrixML.Application;
 
@@ -8,13 +10,26 @@ namespace UIMatrixML.Modeling
 {
     public class ModelDefinition : IModelDefinition
     {
+        [NotMapped]
         private IWebApplication webApplication { get; set; }
 
+        [NotMapped]
         public IWebApplication WebApplication =>
             this.webApplication;
 
+        [NotMapped]
         public IList<string> Watchers { get; set; }
+
+        [Required]
+        public Guid ID { get; set; }
+
+        [Required]
+        public string Name { get; set; }
+
+        [NotMapped]
         public IList<IModelDefinitionState> Valid { get; set; }
+
+        [NotMapped]
         public IList<IModelDefinitionState> Invalid { get; set; }
 
         public static ModelDefinition New(IWebApplication webApplication, string jsonFilePath = null)
